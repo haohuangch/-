@@ -1,0 +1,13 @@
+.externalToolBuilders
+target
+*.settings
+!.gitignore
+libs
+/bin
+/target
+/*.bat
+/target/
+/lsk/
+/*.iml
+*.iml
+.idea
