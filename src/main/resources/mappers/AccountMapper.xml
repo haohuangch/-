@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chh.core.dao.AccountDao">
+    <resultMap type="Account" id="AccountResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="loginPwd" column="login_pwd"/>
+        <result property="phone" column="phone"/>
+        <result property="privilege" column="privilege"/>
+        <result property="loginPwdModifyTime" column="loginpwd_modify_time"/>
+        <result property="registTime" column="regist_time"/>
+        <result property="loginTime" column="login_time"/>
+    </resultMap>
+
+    <select id="login" parameterType="Account" resultMap="AccountResult">
+        select id,name,login_pwd,phone,privilege from
+        account_info where phone=#{phone} and login_pwd=#{loginPwd} limit 1
+    </select>
+
+    <select id="findAccounts" parameterType="Map" resultMap="AccountResult">
+        select id,name,login_pwd,phone from account_info
+        <where>
+            <if test="name!=null and name!='' ">
+                and name like #{name}
+            </if>
+            <if test="phone!=null and phone!='' ">
+                and phone like #{phone}
+            </if>
+        </where>
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotalAccount" parameterType="Map" resultType="Long">
+        select count(*) from account_info
+        <where>
+            <if test="name!=null and name!='' ">
+                and name like #{name}
+            </if>
+            <if test="phone!=null and phone!='' ">
+                and phone like #{phone}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addAccount" parameterType="Account">
+        insert into account_info(name,phone,login_pwd,privilege,loginpwd_modify_time,regist_time,login_time)
+        values(#{name},#{phone},#{login_pwd},#{privilege},#{loginpwd_modify_time},#{regist_time},#{login_time})
+    </insert>
+
+    <update id="updateAccount" parameterType="Account">
+        update account_info
+        <set>
+            <if test="name!=null and name!='' ">
+                name=#{name},
+            </if>
+            <if test="login_pwd!=null and login_pwd!='' ">
+                login_pwd=#{login_pwd}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteAccount" parameterType="Integer">
+        delete from account_info
+        where id=#{id}
+    </delete>
+</mapper>
