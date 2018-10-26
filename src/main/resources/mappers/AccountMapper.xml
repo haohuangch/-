@@ -48,7 +48,7 @@
 
     <insert id="addAccount" parameterType="Account">
         insert into account_info(name,phone,login_pwd,privilege,loginpwd_modify_time,regist_time,login_time)
-        values(#{name},#{phone},#{login_pwd},#{privilege},#{loginpwd_modify_time},#{regist_time},#{login_time})
+        values(#{name},#{phone},#{loginPwd},#{privilege},#{loginPwdModifyTime},#{registTime},#{loginTime})
     </insert>
 
     <update id="updateAccount" parameterType="Account">
@@ -58,7 +58,7 @@
                 name=#{name},
             </if>
             <if test="login_pwd!=null and login_pwd!='' ">
-                login_pwd=#{login_pwd}
+                login_pwd=#{loginPwd}
             </if>
         </set>
         where id=#{id}

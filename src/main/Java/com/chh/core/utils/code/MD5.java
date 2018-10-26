@@ -1,4 +1,4 @@
-package com.chh.core.utils.utils.code;
+package com.chh.core.utils.code;
 
 /************************************************
  * MD5 算法的Java Bean
@@ -367,5 +367,6 @@ public class MD5 {
           } 
           return digestHexStr; 
       } 
-     
+
 }
+
